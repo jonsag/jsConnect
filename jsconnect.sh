@@ -129,7 +129,7 @@ echo
 echo "Use password $PASSWORD"
 echo
 
-ssh-copy-id "-p $PORT -i $HOME/.ssh/id_rsa.pub $CHOSENUSER@$ADDRESS"
+ssh-copy-id -p $PORT -i $HOME/.ssh/id_rsa.pub $CHOSENUSER@$ADDRESS
 
 exit
 fi 
