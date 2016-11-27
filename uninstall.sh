@@ -13,30 +13,30 @@ fi
 echo "Uninstalling..."
 echo
 
-if [ -h /usr/local/bin/jsconnect ]; then
+if [ -h /usr/local/bin/shconnect ]; then
    echo "Removing link"
-   rm -f /usr/local/bin/jsconnect
+   rm -f /usr/local/bin/shconnect
 else
     echo "Link does not exist"
 fi
 
-if [ -e /usr/local/bin/jsconnect-dir/jsconnect.sh ]; then
+if [ -e /usr/local/bin/shconnect-dir/shconnect.sh ]; then
     echo "Removing script"
-    rm -f /usr/local/bin/jsconnect-dir/jsconnect.sh
+    rm -f /usr/local/bin/shconnect-dir/shconnect.sh
 else
     echo "Script does not exist"
 fi
 
-if [ -d /usr/local/bin/jsconnect-dir ]; then
+if [ -d /usr/local/bin/shconnect-dir ]; then
     echo "Removing directory"
-    rmdir --ignore-fail-on-non-empty /usr/local/bin/jsconnect-dir
+    rmdir --ignore-fail-on-non-empty /usr/local/bin/shconnect-dir
 else
     echo "Directory does not exist"
 fi
 
 echo
 
-if [ -h /usr/local/bin/jsconnect ] || [ -e /usr/local/bin/jsconnect-dir/jsconnect.sh ] || [ -d /usr/local/bin/jscconnect-dir ]; then
+if [ -h /usr/local/bin/shconnect ] || [ -e /usr/local/bin/shconnect-dir/shconnect.sh ] || [ -d /usr/local/bin/jscconnect-dir ]; then
     echo "Everything could not be uninstalled"
     echo "Exiting"
     exit 1

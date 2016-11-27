@@ -3,22 +3,22 @@
 # some initials checks
 
 # check for configuration directory
-if [ -d $HOME/.jsconnect ]; then
-    echo "Directory $HOME/.jsconnect exists"
+if [ -d $HOME/.shconnect ]; then
+    echo "Directory $HOME/.shconnect exists"
 else
-    mkdir $HOME/.jsconnect
+    mkdir $HOME/.shconnect
 fi
 
 # set configuration and computers files
-CONF=$HOME/.jsconnect/jsconnect.conf
-COMPUTERS=$HOME/.jsconnect/jsconnect.computers
-USERS=$HOME/.jsconnect/jsconnect.users
+CONF=$HOME/.shconnect/shconnect.conf
+COMPUTERS=$HOME/.shconnect/shconnect.computers
+USERS=$HOME/.shconnect/shconnect.users
 
 # check if configuration file exists
 if [ -e $CONF ]; then
     echo "Configuration file $CONF exists"
 else
-    cp /etc/jsconnect/jsconnect.conf $CONF
+    cp /etc/shconnect/shconnect.conf $CONF
 fi
 
 # read configuration
@@ -28,14 +28,14 @@ source $CONF
 if [ -e $COMPUTERS ]; then
     echo "Computers file $COMPUTERS exists"
 else
-    cp /etc/jsconnect/jsconnect.computers $COMPUTERS
+    cp /etc/shconnect/shconnect.computers $COMPUTERS
 fi
 
 # check for users file
 if [ -e $USERS ]; then
     echo "Users file $USERS exists"
 else
-    cp /etc/jsconnect/jsconnect.users $USERS
+    cp /etc/shconnect/shconnect.users $USERS
 fi
 
 # check for temporary directory
@@ -46,10 +46,10 @@ else
 fi
 
 # clean temporary directory
-rm -f $TEMPDIR/jsconnect.* >> /dev/null
+rm -f $TEMPDIR/shconnect.* >> /dev/null
 
 # read computers to temp file
-gawk '$1 == "host" { print $2 }' $COMPUTERS >> $TEMPDIR/jsconnect.computers.tmp
+gawk '$1 == "host" { print $2 }' $COMPUTERS >> $TEMPDIR/shconnect.computers.tmp
 
 # connect or transfer key
 echo
@@ -71,10 +71,10 @@ echo "then press [Enter}!"
 echo
 
 # print the different computers with a number in front
-for HOST in $( cat $TEMPDIR/jsconnect.computers.tmp ); do
+for HOST in $( cat $TEMPDIR/shconnect.computers.tmp ); do
     let HOSTNUMBER=$HOSTNUMBER+1
     echo $HOSTNUMBER: $HOST
-    echo $HOSTNUMBER $HOST >> $TEMPDIR/jsconnect.computerslist.tmp
+    echo $HOSTNUMBER $HOST >> $TEMPDIR/shconnect.computerslist.tmp
 done
 
 echo
@@ -84,24 +84,24 @@ echo -e "Your choice: \c"
 read CHOSENHOSTNUMBER
 echo
 
-CHOSENHOST=`gawk -v VAR=$CHOSENHOSTNUMBER '$1 == VAR { print $2 }' $TEMPDIR/jsconnect.computerslist.tmp`
+CHOSENHOST=`gawk -v VAR=$CHOSENHOSTNUMBER '$1 == VAR { print $2 }' $TEMPDIR/shconnect.computerslist.tmp`
 
 ADDRESS=`gawk -v VAR=$CHOSENHOST '$2 == VAR { print $3 }' $COMPUTERS`
 
 PORT=`gawk -v VAR=$CHOSENHOST '$2 == VAR { print $4 }' $COMPUTERS`
 
 # read users to temp file
-gawk -v VAR=$CHOSENHOST '$1 == VAR { print $2 }' $USERS >> $TEMPDIR/jsconnect.users.tmp
+gawk -v VAR=$CHOSENHOST '$1 == VAR { print $2 }' $USERS >> $TEMPDIR/shconnect.users.tmp
 
 echo "Host $CHOSENHOST has the following users configured"
 echo "Type the number, then hit [Enter]"
 echo
 
 # print the different users with a number in front
-for USER in $( cat $TEMPDIR/jsconnect.users.tmp ); do
+for USER in $( cat $TEMPDIR/shconnect.users.tmp ); do
     let USERNUMBER=$USERNUMBER+1
     echo $USERNUMBER: $USER
-    echo $USERNUMBER $USER >> $TEMPDIR/jsconnect.userslist.tmp
+    echo $USERNUMBER $USER >> $TEMPDIR/shconnect.userslist.tmp
 done
 
 echo
@@ -111,7 +111,7 @@ echo -e "Your choice: \c"
 read CHOSENUSERNUMBER
 echo
 
-CHOSENUSER=`gawk -v VAR=$CHOSENUSERNUMBER '$1 == VAR { print $2 }' $TEMPDIR/jsconnect.userslist.tmp`
+CHOSENUSER=`gawk -v VAR=$CHOSENUSERNUMBER '$1 == VAR { print $2 }' $TEMPDIR/shconnect.userslist.tmp`
 
 PASSWORD=`gawk -v VAR1=$CHOSENHOST -v VAR2=$CHOSENUSER '$1 == VAR1 && $2 == VAR2 { print $3 }' $USERS`
 

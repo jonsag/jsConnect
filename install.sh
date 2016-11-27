@@ -13,32 +13,32 @@ else
   exit 1
 fi
 
-if [ -d /usr/local/bin/jsconnect-dir ]; then
-    echo "The directory /usr/local/bin/jsconnect-dir already exist"
+if [ -d /usr/local/bin/shconnect-dir ]; then
+    echo "The directory /usr/local/bin/shconnect-dir already exist"
     echo "Check this up!"
     exit 1
 else
-    if [ -e /usr/local/bin/jsconnect ]; then
-        echo "The file/link  /usr/local/bin/jsconnect already exists"
+    if [ -e /usr/local/bin/shconnect ]; then
+        echo "The file/link  /usr/local/bin/shconnect already exists"
         echo "Check this up"
         exit 1
     else
-        mkdir /usr/local/bin/jsconnect-dir
-        cp $THISDIR/jsconnect.sh /usr/local/bin/jsconnect-dir/
-        chmod 755 /usr/local/bin/jsconnect-dir/jsconnect.sh
-        ln -s jsconnect-dir/jsconnect.sh /usr/local/bin/jsconnect
+        mkdir /usr/local/bin/shconnect-dir
+        cp $THISDIR/shconnect.sh /usr/local/bin/shconnect-dir/
+        chmod 755 /usr/local/bin/shconnect-dir/shconnect.sh
+        ln -s shconnect-dir/shconnect.sh /usr/local/bin/shconnect
     fi
 fi
 
-if [ -d /etc/jsconnect ]; then
-    echo "Directory /etc/jsconnect exists"
+if [ -d /etc/shconnect ]; then
+    echo "Directory /etc/shconnect exists"
 else
-    mkdir /etc/jsconnect
+    mkdir /etc/shconnect
 fi
 
 echo
 
-if [ -e /etc/jsconnect/jsconnect.conf ]; then
+if [ -e /etc/shconnect/shconnect.conf ]; then
     echo "Configuration file already exists."
     echo "Do you wish to overwrite it?"
     select OVERWRITE1 in yes no
@@ -46,22 +46,22 @@ if [ -e /etc/jsconnect/jsconnect.conf ]; then
         break
     done
 else 
-    cp $THISDIR/jsconnect.conf /etc/jsconnect/jsconnect.conf
-    chmod a+r /etc/jsconnect/jsconnect.conf
+    cp $THISDIR/shconnect.conf /etc/shconnect/shconnect.conf
+    chmod a+r /etc/shconnect/shconnect.conf
 fi
 
 if [ $OVERWRITE1="yes" ]; then
-    cp $THISDIR/jsconnect.conf /etc/jsconnect/jsconnect.conf
-    chmod a+r /etc/jsconnect/jsconnect.conf
+    cp $THISDIR/shconnect.conf /etc/shconnect/shconnect.conf
+    chmod a+r /etc/shconnect/shconnect.conf
 else
-    cp $THISDIR/jsconnect.conf /etc/jsconnect/jsconnect.conf.$TIME
+    cp $THISDIR/shconnect.conf /etc/shconnect/shconnect.conf.$TIME
     echo
-    echo "A copy of the new configuration file is located at /etc/jsconnect/jsconnect.conf.$TIME"
+    echo "A copy of the new configuration file is located at /etc/shconnect/shconnect.conf.$TIME"
 fi
 
 echo
 
-if [ -e /etc/jsconnect/jsconnect.computers ]; then
+if [ -e /etc/shconnect/shconnect.computers ]; then
     echo "Computers file already exists."
     echo "Do you wish to overwrite it?"
     select OVERWRITE2 in yes no
@@ -69,22 +69,22 @@ if [ -e /etc/jsconnect/jsconnect.computers ]; then
         break
     done
 else
-    cp $THISDIR/jsconnect.computers /etc/jsconnect/jsconnect.computers
-    chmod a+r /etc/jsconnect/jsconnect.computers
+    cp $THISDIR/shconnect.computers /etc/shconnect/shconnect.computers
+    chmod a+r /etc/shconnect/shconnect.computers
 fi
 
 if [ $OVERWRITE2="yes" ]; then
-    cp $THISDIR/jsconnect.computers /etc/jsconnect/jsconnect.computers
-    chmod a+r /etc/jsconnect/jsconnect.computers
+    cp $THISDIR/shconnect.computers /etc/shconnect/shconnect.computers
+    chmod a+r /etc/shconnect/shconnect.computers
 else
     echo
-    cp $THISDIR/jsconnect.computers /etc/jsconnect/jsconnect.computers.$TIME
-    echo "A copy of the new conmputers file is located at $HOME/.jsconnect.computers.$TIME"
+    cp $THISDIR/shconnect.computers /etc/shconnect/shconnect.computers.$TIME
+    echo "A copy of the new conmputers file is located at $HOME/.shconnect.computers.$TIME"
 fi
 
 echo
 
-if [ -e /etc/jsconnect/jsconnect.users ]; then
+if [ -e /etc/shconnect/shconnect.users ]; then
     echo "Users file already exists."
     echo "Do you wish to overwrite it?"
     select OVERWRITE3 in yes no
@@ -92,26 +92,26 @@ if [ -e /etc/jsconnect/jsconnect.users ]; then
         break
     done
 else
-    cp $THISDIR/jsconnect.users /etc/jsconnect/jsconnect.users
-    chmod a+r /etc/jsconnect/jsconnect.users
+    cp $THISDIR/shconnect.users /etc/shconnect/shconnect.users
+    chmod a+r /etc/shconnect/shconnect.users
 fi
 
 if [ $OVERWRITE3="yes" ]; then
-    cp $THISDIR/jsconnect.users /etc/jsconnect/jsconnect.users
-    chmod a+r /etc/jsconnect/jsconnect.users
+    cp $THISDIR/shconnect.users /etc/shconnect/shconnect.users
+    chmod a+r /etc/shconnect/shconnect.users
 else
-    cp $THISDIR/jsconnect.users /etc/jsconnect/jsconnect.users.$TIME
+    cp $THISDIR/shconnect.users /etc/shconnect/shconnect.users.$TIME
     echo
-    echo "A copy of the new users file is located at $HOME/.jsconnect.users.$TIME"
+    echo "A copy of the new users file is located at $HOME/.shconnect.users.$TIME"
 fi
 
 echo
 
-if [ -d /usr/local/bin/jsconnect-dir ]; then
-    if [ -x /usr/local/bin/jsconnect-dir/jsconnect.sh ]; then
-        if [ -h /usr/local/bin/jsconnect ]; then
+if [ -d /usr/local/bin/shconnect-dir ]; then
+    if [ -x /usr/local/bin/shconnect-dir/shconnect.sh ]; then
+        if [ -h /usr/local/bin/shconnect ]; then
             echo "Install successful"
-            echo "Run with jsconnect"
+            echo "Run with shconnect"
         else
             echo "Install unsuccessful"
             echo "No link created"
